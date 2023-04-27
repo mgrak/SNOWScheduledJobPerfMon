@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2023-04-27 18:59:14">
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sysauto_script_47fbc55c47222110e4a9f164336d436f</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sysauto_script"&gt;&lt;sysauto_script action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;business_calendar/&gt;&lt;condition/&gt;&lt;conditional&gt;false&lt;/conditional&gt;&lt;entered_time&gt;1970-01-01 00:00:00&lt;/entered_time&gt;&lt;name&gt;Perfomance monitor scheduled jobs past due (sys_trigger)&lt;/name&gt;&lt;offset/&gt;&lt;offset_type&gt;0&lt;/offset_type&gt;&lt;run_as display_value="System Administrator"&gt;6816f79cc0a8016401c5a33be04be441&lt;/run_as&gt;&lt;run_as_tz/&gt;&lt;run_dayofmonth&gt;1&lt;/run_dayofmonth&gt;&lt;run_dayofweek&gt;1&lt;/run_dayofweek&gt;&lt;run_period&gt;1970-01-01 01:00:00&lt;/run_period&gt;&lt;run_start&gt;2023-04-27 19:00:00&lt;/run_start&gt;&lt;run_time&gt;1970-01-01 08:00:00&lt;/run_time&gt;&lt;run_type&gt;periodically&lt;/run_type&gt;&lt;script&gt;&lt;![CDATA[var gdtNow = new GlideDateTime(); //GMT
+var threeAM = (gdtNow + '').replace(/[0-9]{2}:[0-9]{2}:[0-9]{2}/g, '03:00:00'); //PST
+var gdtThreeAM = new GlideDateTime(); //GMT
+gdtThreeAM.setDisplayValue(threeAM); //use setDisplay to convert offset 3am PST to GMT
+//Do not run between midnight and 3 am when large jobs are running
+if (gdtNow.onOrAfter(gdtThreeAM)) {
+	var ga = new GlideAggregate('sys_trigger');
+	ga.addEncodedQuery('trigger_type!=2^ORtrigger_type=^next_action&lt;=javascript:gs.beginningOfLastMinute()^trigger_type!=9^ORtrigger_type=NULL');
+	ga.addAggregate('COUNT');
+	ga.query();
+	ga.next();
+	var count = parseInt(ga.getAggregate('COUNT'));
+	var threshold = parseInt(gs.getProperty('mgrak.perf.mon.sys_trigger.record.count'));
+	if (count &gt; threshold) {
+		var eventInfo = 'Scheduled Jobs (sys_trigger) tables has over ' + count + ' records past next run time.&lt;br /&gt;';
+		var details = '&lt;a href="/sys_trigger_list.do?sysparm_query=trigger_type!%3D2%5EORtrigger_type%3D%5Enext_action%3C%3Djavascript:gs.beginningOfLastMinute()%5Etrigger_type!%3D9%5EORtrigger_type%3DNULL%5EGROUPBYstate"&gt;records past due table&lt;/a&gt;&lt;br&gt;Monitor Threshold: ' + threshold;
+		gs.eventQueue("mgrak.performance_alert", '', '', eventInfo, details.replace(/\n/g, "&lt;br /&gt;"));
+	}
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sysauto_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-04-27 18:53:18&lt;/sys_created_on&gt;&lt;sys_id&gt;47fbc55c47222110e4a9f164336d436f&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;Perfomance monitor scheduled jobs past due (sys_trigger)&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sysauto_script_47fbc55c47222110e4a9f164336d436f&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-04-27 18:53:18&lt;/sys_updated_on&gt;&lt;time_zone/&gt;&lt;upgrade_safe&gt;false&lt;/upgrade_safe&gt;&lt;/sysauto_script&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-2054557807</payload_hash>
+<remote_update_set display_value=""/>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2023-04-27 18:54:41</sys_created_on>
+<sys_id>666c4d5c47222110e4a9f164336d439a</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>187c411506b0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2023-04-27 18:54:41</sys_updated_on>
+<table/>
+<target_name>Perfomance monitor scheduled jobs past due (sys_trigger)</target_name>
+<type>Scheduled Script Execution</type>
+<update_domain>global</update_domain>
+<update_guid>a26c4d5c95222110a94b7fa02178509a</update_guid>
+<update_guid_history>a26c4d5c95222110a94b7fa02178509a:-2054557807</update_guid_history>
+<update_set display_value="MGRAK: Scheduled Jobs Performance Monitor v0.01">8deb455c47222110e4a9f164336d43e7</update_set>
+<view/>
+</sys_update_xml>
+</unload>

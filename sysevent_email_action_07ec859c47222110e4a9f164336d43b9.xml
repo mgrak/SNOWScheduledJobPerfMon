@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2023-04-27 18:59:51">
+<sysevent_email_action action="INSERT_OR_UPDATE">
+<action_insert>false</action_insert>
+<action_update>false</action_update>
+<active>true</active>
+<advanced_condition/>
+<affected_field_on_event/>
+<category display_value="Performance Analytics" name="Performance Analytics">b69d02137f232200ee2e108c3ffa9151</category>
+<collection/>
+<condition/>
+<content_type>text/html</content_type>
+<default_interval display_value=""/>
+<description/>
+<digest_from/>
+<digest_html/>
+<digest_reply_to/>
+<digest_separator_html><![CDATA[<p>&nbsp;</p>
+<hr />
+<p>&nbsp;</p>]]></digest_separator_html>
+<digest_separator_text><![CDATA[\n--------------------------------------------------------------------------------\n]]></digest_separator_text>
+<digest_subject/>
+<digest_template display_value=""/>
+<digest_text/>
+<digestable>false</digestable>
+<enable_dynamic_translation>false</enable_dynamic_translation>
+<event_name>mgrak.performance_alert</event_name>
+<event_parm_1>false</event_parm_1>
+<event_parm_2>false</event_parm_2>
+<exclude_delegates>false</exclude_delegates>
+<force_delivery>false</force_delivery>
+<from/>
+<generation_type>event</generation_type>
+<importance/>
+<include_attachments>false</include_attachments>
+<item>event.parm1</item>
+<item_table/>
+<mandatory>false</mandatory>
+<message/>
+<message_html><![CDATA[<p>&nbsp;</p>
+<table style="width: 100%;" border="0" cellspacing="0">
+<tbody>
+<tr>
+<td style="font-weight: 100 !important;" width="100%">
+<h2 style="margin: 0; font-weight: 100 !important; font-size: large;"><span style="color: #000000;">Performance Alert</span></h2>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<div class="email-body">
+<div class="section">
+<div class="section-header" style="padding: 1rem; border-top: 1px solid #F0F0F2;">
+<h2 style="margin: 0; font-weight: 100; font-size: large;">Please perform the needful.</h2>
+<div class="email-body">
+<div class="section">
+<div class="section-header" style="padding: 1rem; border-top: 1px solid #f0f0f2;">
+<h2 style="margin: 0px; font-weight: 100; font-size: large;">${event.parm1} Details</h2>
+</div>
+<div class="section-body details" style="font-size: small; padding: 1rem;">
+<div class="row">
+<div class="col col-1" style="width: 150px; display: inline-block; padding: 0.25rem 0px; vertical-align: top;">
+<div class="label" style="font-weight: 600; padding-right: 1rem;">Details</div>
+</div>
+<div class="col col-2" style="min-width: 230px; display: inline-block; padding: 0.25rem 0px; vertical-align: top;">
+<div>${event.parm2}</div>
+</div>
+</div>
+<div class="row">&nbsp;</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>]]></message_html>
+<message_list/>
+<message_text/>
+<name>Performance Alert</name>
+<omit_watermark>false</omit_watermark>
+<order>100</order>
+<push_message_only>false</push_message_only>
+<recipient_fields/>
+<recipient_groups/>
+<recipient_users/>
+<reply_to/>
+<send_self>true</send_self>
+<sms_alternate/>
+<style display_value=""/>
+<subject/>
+<subscribable>false</subscribable>
+<sys_class_name>sysevent_email_action</sys_class_name>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2023-04-27 18:57:49</sys_created_on>
+<sys_domain>global</sys_domain>
+<sys_domain_path>/</sys_domain_path>
+<sys_id>07ec859c47222110e4a9f164336d43b9</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_name>Performance Alert</sys_name>
+<sys_overrides display_value=""/>
+<sys_package display_value="Global" source="global">global</sys_package>
+<sys_policy/>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>sysevent_email_action_07ec859c47222110e4a9f164336d43b9</sys_update_name>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2023-04-27 18:57:49</sys_updated_on>
+<sys_version>2</sys_version>
+<template display_value="Unsubscribe and Preferences">7ed0481f3b0b2200c869c2c703efc487</template>
+<type>email</type>
+<weight>0</weight>
+</sysevent_email_action>
+</unload>

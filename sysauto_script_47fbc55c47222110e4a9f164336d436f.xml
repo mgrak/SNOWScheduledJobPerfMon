@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2023-04-27 18:59:46">
+<sysauto_script action="INSERT_OR_UPDATE">
+<active>true</active>
+<business_calendar display_value=""/>
+<condition/>
+<conditional>false</conditional>
+<entered_time>1970-01-01 00:00:00</entered_time>
+<name>Perfomance monitor scheduled jobs past due (sys_trigger)</name>
+<offset/>
+<offset_type>0</offset_type>
+<run_as display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</run_as>
+<run_as_tz/>
+<run_dayofmonth>1</run_dayofmonth>
+<run_dayofweek>1</run_dayofweek>
+<run_period>1970-01-01 01:00:00</run_period>
+<run_start>2023-04-27 19:00:00</run_start>
+<run_time>1970-01-01 08:00:00</run_time>
+<run_type>periodically</run_type>
+<script><![CDATA[var gdtNow = new GlideDateTime(); //GMT
+var threeAM = (gdtNow + '').replace(/[0-9]{2}:[0-9]{2}:[0-9]{2}/g, '03:00:00'); //PST
+var gdtThreeAM = new GlideDateTime(); //GMT
+gdtThreeAM.setDisplayValue(threeAM); //use setDisplay to convert offset 3am PST to GMT
+//Do not run between midnight and 3 am when large jobs are running
+if (gdtNow.onOrAfter(gdtThreeAM)) {
+	var ga = new GlideAggregate('sys_trigger');
+	ga.addEncodedQuery('trigger_type!=2^ORtrigger_type=^next_action<=javascript:gs.beginningOfLastMinute()^trigger_type!=9^ORtrigger_type=NULL');
+	ga.addAggregate('COUNT');
+	ga.query();
+	ga.next();
+	var count = parseInt(ga.getAggregate('COUNT'));
+	var threshold = parseInt(gs.getProperty('mgrak.perf.mon.sys_trigger.record.count'));
+	if (count > threshold) {
+		var eventInfo = 'Scheduled Jobs (sys_trigger) tables has over ' + count + ' records past next run time.<br />';
+		var details = '<a href="/sys_trigger_list.do?sysparm_query=trigger_type!%3D2%5EORtrigger_type%3D%5Enext_action%3C%3Djavascript:gs.beginningOfLastMinute()%5Etrigger_type!%3D9%5EORtrigger_type%3DNULL%5EGROUPBYstate">records past due table</a><br>Monitor Threshold: ' + threshold;
+		gs.eventQueue("mgrak.performance_alert", '', '', eventInfo, details.replace(/\n/g, "<br />"));
+	}
+}]]></script>
+<sys_class_name>sysauto_script</sys_class_name>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2023-04-27 18:53:18</sys_created_on>
+<sys_id>47fbc55c47222110e4a9f164336d436f</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_name>Perfomance monitor scheduled jobs past due (sys_trigger)</sys_name>
+<sys_package display_value="Global" source="global">global</sys_package>
+<sys_policy/>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>sysauto_script_47fbc55c47222110e4a9f164336d436f</sys_update_name>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2023-04-27 18:53:18</sys_updated_on>
+<time_zone/>
+<upgrade_safe>false</upgrade_safe>
+</sysauto_script>
+</unload>
